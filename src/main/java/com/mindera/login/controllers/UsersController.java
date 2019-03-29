@@ -1,6 +1,6 @@
 package com.mindera.login.controllers;
 
-import com.mindera.login.models.User;
+import com.mindera.login.models.database.User;
 import com.mindera.login.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

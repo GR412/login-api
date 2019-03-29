@@ -1,4 +1,4 @@
-package com.mindera.login.models;
+package com.mindera.login.models.database;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

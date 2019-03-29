@@ -1,0 +1,10 @@
+com/mindera/login/models/database/Session.class
+com/mindera/login/controllers/UsersController.class
+com/mindera/login/Application.class
+com/mindera/login/services/UsersService.class
+com/mindera/login/repositories/UsersRepository.class
+com/mindera/login/repositories/SessionRepository.class
+com/mindera/login/models/api/LoginResponse.class
+com/mindera/login/models/database/User.class
+com/mindera/login/models/api/LoginRequest.class
+com/mindera/login/controllers/AuthenticationController.class

@@ -8,6 +8,7 @@ import com.mindera.login.repositories.SessionRepository;
 import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -94,7 +95,7 @@ public class UsersService {
         }
 
         // all good -> login user
-        Session session = new Session(UUID.randomUUID().toString(), LocalDateTime.now().plusMinutes(10));
+        Session session = new Session(UUID.randomUUID().toString(),LocalDateTime.now().plusMinutes(10));
 
         // Save the session in the Session table
         sessionRepository.save(session);

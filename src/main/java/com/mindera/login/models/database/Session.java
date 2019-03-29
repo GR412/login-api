@@ -15,12 +15,13 @@ public class Session {
     private String sessionAuthToken;
     private LocalDateTime expiryDate;
 
-    public Session() {
-    }
-
     public Session(String sessionAuthToken, LocalDateTime expiryDate) {
         this.sessionAuthToken = sessionAuthToken;
         this.expiryDate = expiryDate;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getSessionAuthToken() {

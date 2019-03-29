@@ -4,9 +4,10 @@ import com.mindera.login.models.api.LoginRequest;
 import com.mindera.login.models.api.LoginResponse;
 import com.mindera.login.models.database.Session;
 import com.mindera.login.models.database.User;
+import com.mindera.login.repositories.SessionRepository;
+import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.mindera.login.repositories.UsersRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +19,10 @@ public class UsersService {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private SessionRepository sessionRepository;
+
 
     /**
      * @return
@@ -92,7 +97,7 @@ public class UsersService {
         Session session = new Session(UUID.randomUUID().toString(), LocalDateTime.now().plusMinutes(10));
 
         // Save the session in the Session table
-        // sessionRepository.save(session);
+        sessionRepository.save(session);
 
         return new LoginResponse(session.getSessionAuthToken());
     }

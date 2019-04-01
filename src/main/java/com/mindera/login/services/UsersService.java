@@ -8,58 +8,81 @@ import com.mindera.login.repositories.SessionRepository;
 import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * This class defines a number of methods that perform CRUD operations on the database tables through access to the
+ * Users and Session repository methods.
+ *
+ * The controller endpoints (accessed by the frontend) use this class.
+ */
+
 @Service
-public class UsersService {
+public class UsersService
+{
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersRepository usersRepository; //Allows access to CRUD methods for the Users table.
 
     @Autowired
-    private SessionRepository sessionRepository;
+    private SessionRepository sessionRepository; //Allows access to CRUD methods for the Session table.
 
 
     /**
-     * @return
+     * Retrieves a list of all Users currently in the Users table.
+     *
+     * @return a List of Users
      */
-    public List<User> getAllUsers() {
+
+    public List<User> getAllUsers()
+    {
         return usersRepository.findAll();
     }
 
     /**
-     * @param userId
-     * @return
+     * Retrieves a single User from the Users table.
+     *
+     * @param userId the supplied userId taken from the User table
+     * @return the selected User
      */
-    public User getUserById(int userId) {
-        return usersRepository
-                .findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+
+    public User getUserById(int userId)
+    {
+        return usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     /**
-     * @param user
-     * @return
+     * Creates a new User and adds it to the Users table.
+     *
+     * @param user the supplied user to be saved to the Users table.
+     * @return the newly created User
      */
-    public User createNewUser(User user) {
+
+    public User createNewUser(User user)
+    {
         return usersRepository.save(user);
     }
 
     /**
-     * Updates user.
+     *
+     * NEED HELP EXPLAINING
+     *
+     * Updates an existing User which is reflected in the Users table.
+     *
      * Saves only email and password.
+     *
      * User id and username are ignored (can't be updated).
      *
      * @param userId
      * @param user
      * @return
      */
-    public User updateUser(int userId, User user) {
+
+    public User updateUser(int userId, User user)
+    {
         User databaseUser = this.getUserById(userId);
         databaseUser.setEmail(user.getEmail());
         databaseUser.setPassword(user.getPassword());
@@ -67,37 +90,47 @@ public class UsersService {
     }
 
     /**
-     * @param userId
-     * @return
+     * Removes an existing User
+     *
+     * @param userId the supplied userId taken from the User table
+     * @return the recently deleted User
      */
-    public User deleteUser(int userId) {
+
+    public User deleteUser(int userId)
+    {
         User user = this.getUserById(userId);
         usersRepository.delete(user);
         return user;
     }
 
     /**
-     * Login user to back-end server and generates auth token.
+     * Login user to back-end server.
+     *
+     * First checks to see if the inputted username exists in the user table then checks to see if the inputted password
+     * also exists in the user table. If both of these checks are satisfied then a session authentication token is
+     * generated and saved to the session table.
      *
      * @param request login request containing username and password
      * @return response containing auth token
      */
-    public LoginResponse login(LoginRequest request) {
+
+    public LoginResponse login(LoginRequest request)
+    {
         // search for user by username from input (login request) in database
         Optional<User> optionalUser = usersRepository.findByUsername(request.getUsername());
 
         // make sure user is found
-        User databaseUser = optionalUser.orElseThrow(() -> new RuntimeException("User not found by username: " + request.getUsername()));
+        User databaseUser = optionalUser.orElseThrow(() ->
+                new RuntimeException("Username: " + request.getUsername() + " not found!"));
 
         // make sure password matches
-        if (!databaseUser.getPassword().equals(request.getPassword())) {
-            throw new RuntimeException("User password doesn't match");
-        }
+        if (!databaseUser.getPassword().equals(request.getPassword()))
+            throw new RuntimeException("Incorrect Password!");
 
-        // all good -> login user
+        // all good -> login user and generate an auth token
         Session session = new Session(UUID.randomUUID().toString(),LocalDateTime.now().plusMinutes(10));
 
-        // Save the session in the Session table
+        // Save the session auth token to the Session table
         sessionRepository.save(session);
 
         return new LoginResponse(session.getSessionAuthToken());

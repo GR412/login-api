@@ -8,6 +8,7 @@ import com.mindera.login.repositories.SessionRepository;
 import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +22,7 @@ import java.util.UUID;
  */
 
 @Service
-public class UsersService
-{
+public class UsersService {
 
     @Autowired
     private UsersRepository usersRepository; //Allows access to CRUD methods for the Users table.
@@ -37,8 +37,7 @@ public class UsersService
      * @return a List of Users
      */
 
-    public List<User> getAllUsers()
-    {
+    public List<User> getAllUsers() {
         return usersRepository.findAll();
     }
 
@@ -49,8 +48,7 @@ public class UsersService
      * @return the selected User
      */
 
-    public User getUserById(int userId)
-    {
+    public User getUserById(int userId) {
         return usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
@@ -61,13 +59,11 @@ public class UsersService
      * @return the newly created User
      */
 
-    public User createNewUser(User user)
-    {
+    public User createNewUser(User user) {
         return usersRepository.save(user);
     }
 
     /**
-     *
      * NEED HELP EXPLAINING
      *
      * Updates an existing User which is reflected in the Users table.
@@ -81,9 +77,9 @@ public class UsersService
      * @return
      */
 
-    public User updateUser(int userId, User user)
-    {
+    public User updateUser(int userId, User user) {
         User databaseUser = this.getUserById(userId);
+        databaseUser.setUsername(user.getUsername());
         databaseUser.setEmail(user.getEmail());
         databaseUser.setPassword(user.getPassword());
         return usersRepository.save(databaseUser);
@@ -96,8 +92,7 @@ public class UsersService
      * @return the recently deleted User
      */
 
-    public User deleteUser(int userId)
-    {
+    public User deleteUser(int userId) {
         User user = this.getUserById(userId);
         usersRepository.delete(user);
         return user;
@@ -114,8 +109,7 @@ public class UsersService
      * @return response containing auth token
      */
 
-    public LoginResponse login(LoginRequest request)
-    {
+    public LoginResponse login(LoginRequest request) {
         // search for user by username from input (login request) in database
         Optional<User> optionalUser = usersRepository.findByUsername(request.getUsername());
 
@@ -128,11 +122,20 @@ public class UsersService
             throw new RuntimeException("Incorrect Password!");
 
         // all good -> login user and generate an auth token
-        Session session = new Session(UUID.randomUUID().toString(),LocalDateTime.now().plusMinutes(10));
+        String uniqueId = UUID.randomUUID().toString();
+        Session session = new Session(uniqueId, LocalDateTime.now().plusMinutes(10));
 
         // Save the session auth token to the Session table
         sessionRepository.save(session);
 
         return new LoginResponse(session.getSessionAuthToken());
+    }
+
+    public boolean isTokenValid(String authToken)
+    {
+        Optional<Session> optionalSession = sessionRepository.findBySessionAuthToken(authToken);
+
+        return optionalSession.isPresent() && optionalSession.get().getExpiryDate().isAfter(LocalDateTime.now());
+
     }
 }

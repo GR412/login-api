@@ -21,17 +21,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/users")
 public class UsersController
 {
-
     @Autowired
     private UsersService usersService;
 
-    /**
-     * Processes an incoming GET request to get all Users from the Users table.
-     *
-     * Frontend uses http://localhost:8080/users to call this method.
-     *
-     * @return the result of calling the getAllUsers usersService method.
-     */
 
     @RequestMapping(method = GET)
     public List<User> getAllUsers()

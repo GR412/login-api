@@ -1,9 +1,6 @@
 package com.mindera.login.models.database;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -21,6 +18,16 @@ public class Session {
     private String sessionAuthToken;
     private LocalDateTime expiryDate;
 
+    /*The @JoinColumn annotation configures the name of the column in the Session table that maps to the primary key in
+      the User table. If we don’t provide a name, then Hibernate will follow some rules to select a default one.
+
+      We only need it on the owning side of the foreign key relationship. Whoever owns the foreign key column gets the
+      @JoinColumn annotation.*/
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user; //This is a User object that represents the User table in the One-One relationship to the Session table.
+
     /**
      * Constructor that assigns the class fields to the value passed in when an instance of this class is created.
      *
@@ -28,36 +35,38 @@ public class Session {
      * @param expiryDate the supplied expiryDate
      */
 
-    public Session(String sessionAuthToken, LocalDateTime expiryDate)
-    {
+    public Session(String sessionAuthToken, LocalDateTime expiryDate) {
         this.sessionAuthToken = sessionAuthToken;
         this.expiryDate = expiryDate;
     }
 
     //Standard get and set methods.
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public String getSessionAuthToken()
-    {
+    public String getSessionAuthToken() {
         return sessionAuthToken;
     }
 
-    public void setSessionAuthToken(String sessionAuthToken)
-    {
+    public void setSessionAuthToken(String sessionAuthToken) {
         this.sessionAuthToken = sessionAuthToken;
     }
 
-    public LocalDateTime getExpiryDate()
-    {
+    public LocalDateTime getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(LocalDateTime expiryDate)
-    {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,5 +1,6 @@
 package com.mindera.login.controllers;
 
+import com.mindera.login.models.api.UserResponse;
 import com.mindera.login.models.database.User;
 import com.mindera.login.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  */
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/users")
 public class UsersController
 {
@@ -26,7 +27,7 @@ public class UsersController
 
 
     @RequestMapping(method = GET)
-    public List<User> getAllUsers()
+    public List<UserResponse> getAllUsers()
     {
         return usersService.getAllUsers();
     }

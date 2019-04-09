@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,22 +24,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 // instruct spring framework do do not use session policy - we will do that on our own
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-
-                // on error sent 401
-                .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                .cors()
                 .and()
 
-                // register filter that verifies authentication
-                .addFilterAfter(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-
                 // then set up paths
-                .authorizeRequests() //all requests
-                .antMatchers(HttpMethod.POST, "/login").permitAll() //that match a route to the login page
-                .anyRequest() //are allowed by non-authenticated users
-                .authenticated(); //else if the request doesn't match the /login path then a user must be authenticated
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .anyRequest()
+                .permitAll() //that match a route to the login page
+                .and()
+                // on error sent 401
+
+                // register filter that verifies authentication
+                .addFilterAfter(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -44,6 +48,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         FilterRegistrationBean<AuthenticationFilter> filterRegistrationBean = new FilterRegistrationBean<>(authenticationFilter);
         filterRegistrationBean.setEnabled(false);
         return filterRegistrationBean;
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 
 }

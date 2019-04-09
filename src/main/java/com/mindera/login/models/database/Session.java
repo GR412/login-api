@@ -29,15 +29,20 @@ public class Session {
     private User user; //This is a User object that represents the User table in the One-One relationship to the Session table.
 
     /**
+     *
+     */
+    public Session(){}
+
+    /**
      * Constructor that assigns the class fields to the value passed in when an instance of this class is created.
      *
      * @param sessionAuthToken the supplied sessionAuthToken
      * @param expiryDate the supplied expiryDate
      */
-
-    public Session(String sessionAuthToken, LocalDateTime expiryDate) {
+    public Session(String sessionAuthToken, LocalDateTime expiryDate, User user) {
         this.sessionAuthToken = sessionAuthToken;
         this.expiryDate = expiryDate;
+        this.user = user;
     }
 
     //Standard get and set methods.

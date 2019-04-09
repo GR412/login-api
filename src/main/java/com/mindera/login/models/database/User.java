@@ -58,7 +58,7 @@ public class User {
         return session;
     }
 
-    public void setSession() {
+    public void setSession(Session session) {
         this.session = session;
     }
 }

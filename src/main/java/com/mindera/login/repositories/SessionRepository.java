@@ -5,6 +5,7 @@ import com.mindera.login.models.database.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -24,5 +25,5 @@ public interface SessionRepository extends JpaRepository<Session, Integer>
      * @return an optional Session if the session auth token code is found, otherwise return an empty Optional if no session auth token is
      * found.
      */
-    Optional<Session> findBySessionAuthToken(String token);
+    Optional<Session> findBySessionAuthTokenAndExpiryDateBefore(String token, LocalDateTime expiryDate);
 }

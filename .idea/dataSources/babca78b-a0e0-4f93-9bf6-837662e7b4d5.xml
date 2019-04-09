@@ -928,7 +928,7 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="232" parent="226" name="session_user_id_fk">
+    <index id="232" parent="226" name="FK1bi1pmqjgipw7dx3j6bl37dja">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>

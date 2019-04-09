@@ -2,6 +2,7 @@ package com.mindera.login.services;
 
 import com.mindera.login.models.api.LoginRequest;
 import com.mindera.login.models.api.LoginResponse;
+import com.mindera.login.models.api.UserResponse;
 import com.mindera.login.models.database.Session;
 import com.mindera.login.models.database.User;
 import com.mindera.login.repositories.SessionRepository;
@@ -9,10 +10,13 @@ import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static java.time.LocalDateTime.now;
+import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
 
 /**
  * This class defines a number of methods that perform CRUD operations on the database tables through access to the
@@ -37,8 +41,10 @@ public class UsersService {
      * @return a List of Users
      */
 
-    public List<User> getAllUsers() {
-        return usersRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return usersRepository.findAll().stream()
+                .map(user -> new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getPassword()))
+                .collect(toList());
     }
 
     /**
@@ -117,13 +123,22 @@ public class UsersService {
         User databaseUser = optionalUser.orElseThrow(() ->
                 new RuntimeException("Username: " + request.getUsername() + " not found!"));
 
+
+        if(!isNull(databaseUser.getSession())){
+            // If the user has a session I need to make it invalid
+            Session session = databaseUser.getSession();
+            session.setUser(null);
+            session.setExpiryDate(now());
+            sessionRepository.save(session);
+        }
+
         // make sure password matches
         if (!databaseUser.getPassword().equals(request.getPassword()))
             throw new RuntimeException("Incorrect Password!");
 
         // all good -> login user and generate an auth token
         String uniqueId = UUID.randomUUID().toString();
-        Session session = new Session(uniqueId, LocalDateTime.now().plusMinutes(10));
+        Session session = new Session(uniqueId, now().plusMinutes(10), databaseUser);
 
         // Save the session auth token to the Session table
         sessionRepository.save(session);
@@ -131,11 +146,15 @@ public class UsersService {
         return new LoginResponse(session.getSessionAuthToken());
     }
 
-    public boolean isTokenValid(String authToken)
+    public User verifyToken(String authToken)
     {
-        Optional<Session> optionalSession = sessionRepository.findBySessionAuthToken(authToken);
+        Optional<Session> optionalSession = sessionRepository.findBySessionAuthTokenAndExpiryDateBefore(authToken, now());
 
-        return optionalSession.isPresent() && optionalSession.get().getExpiryDate().isAfter(LocalDateTime.now());
+        // boolean isTokenValid = optionalSession.isPresent() && optionalSession.get().getExpiryDate().isAfter(now());
+
+        return optionalSession
+                .map(Session::getUser) // if optionalSession value is not null
+                .orElse(null); // if optionalSession value is null
 
     }
 }

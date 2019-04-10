@@ -6,18 +6,14 @@ package com.mindera.login.models.api;
  * If the username and password are satisfied from the LoginRequest then an auth token is generated and stored in an
  * instance of this class.
  */
-
-public class LoginResponse
-{
+public class LoginResponse {
 
     private String authToken;
 
     /**
      * Default constructor
      */
-
-    public LoginResponse()
-    {
+    public LoginResponse() {
 
     }
 
@@ -26,22 +22,17 @@ public class LoginResponse
      *
      * @param authToken a login response must have a supplied auth token used for authentication purposes.
      */
-
-    public LoginResponse(String authToken)
-    {
+    public LoginResponse(String authToken) {
         this.authToken = authToken;
     }
 
     //Standard get and set methods
 
-    public String getAuthToken()
-    {
+    public String getAuthToken() {
         return authToken;
     }
 
-    public void setAuthToken(String authToken)
-    {
+    public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
-
 }

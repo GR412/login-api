@@ -16,33 +16,34 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  *
  * With this information the frontend calls the correct controller method based on the URL matching.
  */
-
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/users")
-public class UsersController
-{
+public class UsersController {
+
     @Autowired
     private UsersService usersService;
 
-
+    /**
+     * Processes an incoming GET request to get all Users from the Users table.
+     *
+     * Frontend uses http://localhost:8080/users to call this method.
+     *
+     * @return the result of calling the getAllUsers usersService method.
+     */
     @RequestMapping(method = GET)
-    public List<UserResponse> getAllUsers()
-    {
+    public List<UserResponse> getAllUsers() {
         return usersService.getAllUsers();
     }
 
     /**
      * Processes an incoming GET request to get a single User from the Users table.
      *
-     * Frontend uses http://localhost:8080/user/{user-id} to call this method.
+     * Frontend uses http://localhost:8080/users/{user-id} to call this method.
      *
      * @return the result of calling the getUserById usersService method.
      */
-
     @RequestMapping(method = GET, path = "/{user-id}")
-    public User getUserById(@PathVariable(name = "user-id") int userId)
-    {
+    public User getUserById(@PathVariable(name = "user-id") int userId) {
         return usersService.getUserById(userId);
     }
 
@@ -53,10 +54,8 @@ public class UsersController
      *
      * @return the result of calling the createNewUser usersService method.
      */
-
     @RequestMapping(method = POST)
-    public User createNewUser(@RequestBody User user)
-    {
+    public User createNewUser(@RequestBody User user) {
         return usersService.createNewUser(user);
     }
 
@@ -67,10 +66,8 @@ public class UsersController
      *
      * @return the result of calling the updateUser usersService method.
      */
-
     @RequestMapping(method = PUT, path = "/{user-id}")
-    public User updateUser(@PathVariable(name = "user-id") int userId, @RequestBody User user)
-    {
+    public User updateUser(@PathVariable(name = "user-id") int userId, @RequestBody User user) {
         return usersService.updateUser(userId, user);
     }
 
@@ -81,10 +78,8 @@ public class UsersController
      *
      * @return the result of calling the deleteUser usersService method.
      */
-
     @RequestMapping(method = DELETE, path = "/{user-id}")
-    public User deleteUser(@PathVariable(name = "user-id") int userId)
-    {
+    public User deleteUser(@PathVariable(name = "user-id") int userId) {
         return usersService.deleteUser(userId);
     }
 }

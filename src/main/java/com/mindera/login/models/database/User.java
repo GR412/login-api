@@ -3,12 +3,13 @@ package com.mindera.login.models.database;
 import javax.persistence.*;
 
 /**
- * This class defines the shape of a User which is composed of an id, username, email and password.
+ * This class defines the shape of a User which is composed of an id, username, email, password and a session.
  *
  * The User table is also mapped to this class through object relational mapping.
  */
 @Entity //Mark this as an Entity as this class is used in ORM to the Users database table.
 public class User {
+
     @Id //Mark id as a database id.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Defines the way an id is automatically generated.
     private int id;
@@ -26,9 +27,7 @@ public class User {
 
     //Standard get and set methods.
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public String getUsername() {
         return username;
@@ -38,9 +37,7 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
     public void setEmail(String email) {
         this.email = email;

@@ -3,7 +3,6 @@ package com.mindera.login.repositories;
 import com.mindera.login.models.database.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
 /**
@@ -13,15 +12,14 @@ import java.util.Optional;
  *
  * Although in this case we need a specific method to find a User by username so we define it's method signature here.
  */
-
 @Repository
-public interface UsersRepository extends JpaRepository<User, Integer>
-{
+public interface UsersRepository extends JpaRepository<User, Integer> {
 
     /**
      * Interface signature that finds a User in the Users table by username.
      *
      * @param username the supplied username of the user you want to find in the Users table.
+     *
      * @return an optional User if the username is found, otherwise return an empty Optional if no User is
      * found.
      */

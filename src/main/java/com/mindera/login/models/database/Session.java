@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * This class defines the shape of a Session which is composed of an id, sessionAuthToken and an expiry date.
+ * This class defines the shape of a Session which is composed of an id, sessionAuthToken, expiry date and a User.
  *
  * The Session table is also mapped to this class through object relational mapping.
  */
@@ -29,15 +29,18 @@ public class Session {
     private User user; //This is a User object that represents the User table in the One-One relationship to the Session table.
 
     /**
-     *
+     * Default constructor
      */
-    public Session(){}
+    public Session(){
+
+    }
 
     /**
      * Constructor that assigns the class fields to the value passed in when an instance of this class is created.
      *
-     * @param sessionAuthToken the supplied sessionAuthToken
-     * @param expiryDate the supplied expiryDate
+     * @param sessionAuthToken the supplied sessionAuthToken.
+     * @param expiryDate the supplied expiryDate.
+     * @param user the supplied user object.
      */
     public Session(String sessionAuthToken, LocalDateTime expiryDate, User user) {
         this.sessionAuthToken = sessionAuthToken;

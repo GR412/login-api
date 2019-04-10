@@ -9,22 +9,20 @@ import com.mindera.login.repositories.SessionRepository;
 import com.mindera.login.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import static java.time.LocalDateTime.now;
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
 /**
  * This class defines a number of methods that perform CRUD operations on the database tables through access to the
- * Users and Session repository methods.
+ * Users and Session repository methods. It also has methods that authenticate a user before they can carry out CRUD
+ * operations.
  *
  * The controller endpoints (accessed by the frontend) use this class.
  */
-
 @Service
 public class UsersService {
 
@@ -38,9 +36,8 @@ public class UsersService {
     /**
      * Retrieves a list of all Users currently in the Users table.
      *
-     * @return a List of Users
+     * @return a List of UserResponse instead of a list of User
      */
-
     public List<UserResponse> getAllUsers() {
         return usersRepository.findAll().stream()
                 .map(user -> new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getPassword()))
@@ -51,9 +48,9 @@ public class UsersService {
      * Retrieves a single User from the Users table.
      *
      * @param userId the supplied userId taken from the User table
+     *
      * @return the selected User
      */
-
     public User getUserById(int userId) {
         return usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
@@ -62,27 +59,31 @@ public class UsersService {
      * Creates a new User and adds it to the Users table.
      *
      * @param user the supplied user to be saved to the Users table.
+     *
      * @return the newly created User
      */
-
     public User createNewUser(User user) {
         return usersRepository.save(user);
     }
 
     /**
-     * NEED HELP EXPLAINING
-     *
      * Updates an existing User which is reflected in the Users table.
      *
-     * Saves only email and password.
+     * First get the correct user by passing the supplied userId into the getUserById method and assign this to a new
+     * variable databaseUser. We now have the correct user to update.
      *
-     * User id and username are ignored (can't be updated).
+     * Next we set the username, email and password details of the old database User and replace them with the passed
+     * in details of the supplied User via the get methods.
      *
-     * @param userId
-     * @param user
-     * @return
-     */
+     * Finally we save the updated databaseUser object back to the Users table.
 
+     * User id is ignored (can't be updated).
+     *
+     * @param userId the supplied userId taken from the Users table.
+     * @param user the supplied User which contains the updated User details.
+     *
+     * @return the recently updated User.
+     */
     public User updateUser(int userId, User user) {
         User databaseUser = this.getUserById(userId);
         databaseUser.setUsername(user.getUsername());
@@ -92,12 +93,12 @@ public class UsersService {
     }
 
     /**
-     * Removes an existing User
+     * Removes an existing User from the Users table.
      *
      * @param userId the supplied userId taken from the User table
+     *
      * @return the recently deleted User
      */
-
     public User deleteUser(int userId) {
         User user = this.getUserById(userId);
         usersRepository.delete(user);
@@ -105,16 +106,37 @@ public class UsersService {
     }
 
     /**
-     * Login user to back-end server.
+     * Login user to back-end server which will unlock the ability to make CRUD operations on Users table.
      *
-     * First checks to see if the inputted username exists in the user table then checks to see if the inputted password
-     * also exists in the user table. If both of these checks are satisfied then a session authentication token is
-     * generated and saved to the session table.
+     * First we find the inputted User in the Users table by searching the username and providing the username in the
+     * input request to the findByUsername method. We assign the result of this to the variable optionalUser which has
+     * a type of Optional<User>. This type either returns empty / null / nothing if the inputted username isn't found
+     * or the User if the inputted username is found in the Users table.
      *
-     * @param request login request containing username and password
-     * @return response containing auth token
+     * Next we take the result of the optionalUser variable and if empty is returned (username not found in the users
+     * table) then we throw an exception else we don't. This is then assigned to the databaseUser variable of type User
+     * which is conformation that the inputted username, maps to a valid User stored in the Users table. which is why
+     * we can assign this to a variable of type User.
+     *
+     * Now we need to ensure that if the User has an existing session token, we invalidate it so a new one can be
+     * generated with the new login request. This prevents a User having more than one session at a time. If the User's
+     * session is not null then we infer that they have an existing one, so we assign the existing User's session to
+     * the session variable and set the User of that session to null and set the expiry date to now to make sure the
+     * token becomes expired. This invalidated session is then saved to the Session table with no associated User.
+     *
+     * Next if the password of the User in the database is not equal to the inputted password from the request, an
+     * exception is thrown with a message that states the inputted password was incorrect.
+     *
+     * Once these checks have been satisfied we generate a new random String and assign that to the uniqueId variable
+     * and supply that to a new Session along with the expiry date and the User taken from the databaseUser variable.
+     * The newly created session is then inserted into the Session table.
+     *
+     * Finally we return a new LoginResponse supplied with the auth-token of the newly created session.
+     *
+     * @param request the supplied LoginRequest containing a username and password.
+     *
+     * @return a LoginResponse containing an auth token.
      */
-
     public LoginResponse login(LoginRequest request) {
         // search for user by username from input (login request) in database
         Optional<User> optionalUser = usersRepository.findByUsername(request.getUsername());
@@ -122,7 +144,6 @@ public class UsersService {
         // make sure user is found
         User databaseUser = optionalUser.orElseThrow(() ->
                 new RuntimeException("Username: " + request.getUsername() + " not found!"));
-
 
         if(!isNull(databaseUser.getSession())){
             // If the user has a session I need to make it invalid
@@ -146,8 +167,19 @@ public class UsersService {
         return new LoginResponse(session.getSessionAuthToken());
     }
 
-    public User verifyToken(String authToken)
-    {
+    /**
+     * Verifies that the auth-token in the browsers local storage matches an auth-token in the Session table.
+     *
+     * First we find a session auth-token with it's expiry date against the supplied auth-token taken from the browser
+     * and assign that to an optional variable optionalSession.
+     *
+     * Then we return NOT SURE YET
+     *
+     * @param authToken the supplied auth-token taken from the browser local storage.
+     *
+     * @return NOT SURE YET
+     */
+    public User verifyToken(String authToken) {
         Optional<Session> optionalSession = sessionRepository.findBySessionAuthTokenAndExpiryDateBefore(authToken, now());
 
         // boolean isTokenValid = optionalSession.isPresent() && optionalSession.get().getExpiryDate().isAfter(now());
@@ -155,6 +187,5 @@ public class UsersService {
         return optionalSession
                 .map(Session::getUser) // if optionalSession value is not null
                 .orElse(null); // if optionalSession value is null
-
     }
 }

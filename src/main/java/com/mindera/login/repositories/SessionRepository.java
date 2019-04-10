@@ -1,10 +1,8 @@
 package com.mindera.login.repositories;
 
 import com.mindera.login.models.database.Session;
-import com.mindera.login.models.database.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -13,17 +11,18 @@ import java.util.Optional;
  *
  * It extends the JpaRepository so we can make use of existing methods rather than writing our own from scratch.
  */
-
 @Repository
-public interface SessionRepository extends JpaRepository<Session, Integer>
-{
+public interface SessionRepository extends JpaRepository<Session, Integer> {
 
     /**
-     * Interface signature that finds a session token in the Session table by the session auth token code.
+     * Interface signature that finds a session token in the Session table by the session auth token code and the
+     * expiry date.
      *
      * @param token the supplied token of the session auth token code you want to find in the Session table.
-     * @return an optional Session if the session auth token code is found, otherwise return an empty Optional if no session auth token is
-     * found.
+     * @param expiryDate the supplied expiry date of the session auth token you want to find in the Session table.
+     *
+     * @return an optional Session if the session auth token code is found and the expiry date matches the supplied one,
+     * otherwise return an empty Optional if no session auth token is found.
      */
     Optional<Session> findBySessionAuthTokenAndExpiryDateBefore(String token, LocalDateTime expiryDate);
 }

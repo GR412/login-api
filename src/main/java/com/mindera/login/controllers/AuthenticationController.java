@@ -15,16 +15,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  *
  * With this information the frontend calls the correct controller method based on the URL matching.
  */
-
 @RestController
 //@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/login")
-public class AuthenticationController
-{
+public class AuthenticationController {
 
     @Autowired
     private UsersService usersService;
-
 
     /**
      * Processes an incoming POST request to login a user.
@@ -33,10 +30,8 @@ public class AuthenticationController
      *
      * @return the result of calling the login usersService method.
      */
-
     @RequestMapping(method = POST)
-    public LoginResponse login(@RequestBody LoginRequest loginRequest)
-    {
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return usersService.login(loginRequest);
     }
 }

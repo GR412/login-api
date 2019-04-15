@@ -6,7 +6,8 @@ import com.mindera.login.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * This class is an endpoint that is exposed to the frontend. This is achieved via the request mapping URL '/login'.
@@ -16,8 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
  * With this information the frontend calls the correct controller method based on the URL matching.
  */
 @RestController
-//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
-@RequestMapping("/login")
+@RequestMapping("/authentication")
 public class AuthenticationController {
 
     @Autowired
@@ -30,8 +30,14 @@ public class AuthenticationController {
      *
      * @return the result of calling the login usersService method.
      */
-    @RequestMapping(method = POST)
+    @RequestMapping(method = POST,path = "/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return usersService.login(loginRequest);
     }
+
+    @RequestMapping(method = DELETE, path = "/logout")
+    public boolean logout(@RequestHeader("X-Auth-Token") String sessionToken) {
+        return usersService.logout(sessionToken);
+    }
+
 }

@@ -22,7 +22,7 @@ public class User {
 
       We can assign the non-owning entity name to the mappedBy attribute to reference the non-owning (User) entity.*/
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Session session; //This is a Session object that represents the Session table in the One-One relationship to the Users table.
 
     //Standard get and set methods.

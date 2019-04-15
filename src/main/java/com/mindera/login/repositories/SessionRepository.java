@@ -24,5 +24,8 @@ public interface SessionRepository extends JpaRepository<Session, Integer> {
      * @return an optional Session if the session auth token code is found and the expiry date matches the supplied one,
      * otherwise return an empty Optional if no session auth token is found.
      */
-    Optional<Session> findBySessionAuthTokenAndExpiryDateBefore(String token, LocalDateTime expiryDate);
+    Optional<Session> findBySessionAuthTokenAndExpiryDateAfter(String token, LocalDateTime expiryDate);
+
+    Optional<Session> findBySessionAuthToken(String token);
+
 }

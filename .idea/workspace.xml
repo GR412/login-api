@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8181418d-a31c-424c-bb9a-bc908a0670b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../login-webapp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../login-webapp/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../login-webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../login-webapp/package-lock.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -62,16 +63,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/services/ApiClient.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="204">
-                <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+              <first_editor relative-caret-position="68">
+                <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
               </first_editor>
               <second_editor />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../login-webapp/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="68">
+                <caret line="4" column="56" selection-start-line="4" selection-end-line="4" selection-end-column="108" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../login-webapp/tslint.json">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -125,7 +155,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../login-webapp/src/App/components/TitleBanner/LoginForm/index.tsx" />
         <option value="$PROJECT_DIR$/../login-webapp/src/App/components/LoginForm/index.css" />
         <option value="$PROJECT_DIR$/../login-webapp/src/App/models/Authentication.tsx" />
         <option value="$PROJECT_DIR$/../nominee-service-webapp/src/App/store/actions/investors.ts" />
@@ -175,6 +204,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/mindera/login/security/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mindera/login/services/UsersService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mindera/login/controllers/UsersController.java" />
+        <option value="$PROJECT_DIR$/../login-webapp/README.md" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -215,61 +245,40 @@
           <expand>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="semantic-ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
+              <item name="login-webapp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="login-api" type="b2602c69:ProjectViewProjectNode" />
-              <item name="login-api" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-              <item name="repositories" type="462c0819:PsiDirectoryNode" />
+              <item name="App" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -406,12 +415,12 @@
       <workItem from="1555318128988" duration="11889000" />
       <workItem from="1573663906080" duration="10000" />
       <workItem from="1573663953644" duration="124000" />
-      <workItem from="1573664083490" duration="1505000" />
+      <workItem from="1573664083490" duration="2843000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280723000" />
+    <option name="totallyTimeSpent" value="282061000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -497,23 +506,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/components/TitleBanner/index.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/components/UpdateUserForm/ui.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/components/UsersTable/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="735">
@@ -756,13 +748,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/services/ApiClient.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://babca78b-a0e0-4f93-9bf6-837662e7b4d5/schema/test/table/user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state projectRestartId="11808da4-4c80-4258-b66c-7535fbf7707c">
@@ -812,11 +797,34 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/../login-webapp/src/App/services/ApiClient.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" lean-forward="true" selection-start-column="7" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../login-webapp/tslint.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../login-webapp/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="68">
+            <caret line="4" column="56" selection-start-line="4" selection-end-line="4" selection-end-column="108" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="204">
-            <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+          <first_editor relative-caret-position="68">
+            <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
           </first_editor>
           <second_editor />
         </state>

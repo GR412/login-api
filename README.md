@@ -10,5 +10,5 @@ The purpose of this project is to gain an insight into the Java spring boot fram
    * Spring Boot
    * JPA
    * Maven
-   * MySql
+   * MySQL
    
